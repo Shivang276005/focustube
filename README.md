@@ -1,70 +1,372 @@
-# FocusTube PWA
+# FocusTube
 
-Track your YouTube playlist progress. Install it like a native app on Android and desktop.
+A distraction-free YouTube playlist progress tracker designed for learners who frequently lose focus after opening YouTube.
 
-## Deploy to Vercel (5 minutes)
+## Problem Statement
 
-### Option A — GitHub + Vercel (recommended)
+Many learners open YouTube with a specific goal:
 
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "init"
-   gh repo create focustube --public --push
-   ```
+* Continue a playlist
+* Finish a course
+* Watch a tutorial
+* Complete a learning roadmap
 
-2. **Import on Vercel**
-   - Go to https://vercel.com/new
-   - Click **"Import Git Repository"** → select `focustube`
-   - Framework Preset: **Vite** (auto-detected)
-   - Click **Deploy** — done ✅
+However, once YouTube opens, recommendations, Shorts, trending videos, and notifications often divert attention away from the original learning objective.
 
-### Option B — Vercel CLI (no GitHub needed)
+FocusTube acts as a dedicated learning dashboard where users can:
 
-```bash
-npm install -g vercel
-npm install          # install dependencies first
-vercel               # follow prompts → deploys instantly
-```
-
----
-
-## Install as a PWA
-
-### Android (Chrome)
-1. Open your Vercel URL in Chrome
-2. Tap the **⋮ menu → "Add to Home Screen"**
-3. App installs with its own icon, opens fullscreen
-
-### Desktop (Chrome / Edge)
-1. Open your Vercel URL
-2. Click the **install icon** (➕) in the address bar
-3. Click **Install** — launches like a native app
-
-### iOS (Safari)
-1. Open your Vercel URL in Safari
-2. Tap **Share → "Add to Home Screen"**
-
----
-
-## Local development
-
-```bash
-npm install
-npm run dev      # http://localhost:5173
-npm run build    # production build → dist/
-npm run preview  # preview the production build
-```
+* Track playlist progress
+* Monitor completed videos
+* Set daily goals
+* Visualize learning statistics
+* Stay focused on educational content
 
 ---
 
 ## Features
 
-- ✅ Tracks multiple YouTube playlists simultaneously
-- ✅ Per-video or count-based progress tracking
-- ✅ Daily goals with completion tracking
-- ✅ Progress bars + SVG chart
-- ✅ Data persists via localStorage
-- ✅ Works offline (service worker caches app shell + fonts)
-- ✅ Installable on Android, iOS, Windows, macOS, Linux
+### Playlist Management
+
+* Add unlimited playlists
+* Store playlist URL
+* Track total number of videos
+* Add playlist descriptions
+* Delete playlists when completed
+
+### Progress Tracking
+
+Two tracking modes are available:
+
+#### Count-Based Tracking
+
+Quickly record:
+
+```text
+Videos Watched = X
+Total Videos = Y
+```
+
+Useful for large playlists.
+
+#### Video-Level Tracking
+
+Track individual videos:
+
+* Add video titles
+* Mark videos as watched
+* Remove videos
+* Mark progress up to a specific video
+
+---
+
+### Daily Goals
+
+Create daily learning goals such as:
+
+* Finish 2 React videos
+* Complete one Java assignment
+* Watch Database lecture
+
+Features:
+
+* Add goals
+* Mark goals completed
+* Delete goals
+* Daily completion tracking
+
+---
+
+### Statistics Dashboard
+
+Automatically calculates:
+
+* Total playlists
+* Total videos
+* Watched videos
+* Remaining videos
+* Completed playlists
+
+---
+
+### Progress Visualization
+
+Interactive charts built with Recharts.
+
+Displays:
+
+* Watched videos
+* Remaining videos
+* Playlist-wise completion percentages
+
+---
+
+### Responsive Design
+
+Works on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile Browser
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* React
+* JavaScript (ES6+)
+
+### UI
+
+* Custom CSS
+* Flexbox
+* CSS Grid
+* Responsive Layouts
+
+### Data Visualization
+
+* Recharts
+
+### State Management
+
+* React Hooks
+
+  * useState
+  * useEffect
+
+### Persistence
+
+Current implementation uses:
+
+```javascript
+window.storage
+```
+
+Recommended migration:
+
+```javascript
+localStorage
+```
+
+or
+
+```javascript
+IndexedDB
+```
+
+---
+
+## Project Structure (Recommended)
+
+```text
+src/
+│
+├── app/
+│   └── App.jsx
+│
+├── components/
+│   ├── Header/
+│   ├── Goals/
+│   ├── Playlists/
+│   ├── Charts/
+│   ├── Stats/
+│   └── Common/
+│
+├── hooks/
+│   ├── usePlaylists.js
+│   ├── useGoals.js
+│   └── useStorage.js
+│
+├── reducers/
+│   ├── playlistReducer.js
+│   └── goalReducer.js
+│
+├── services/
+│   ├── storageService.js
+│   └── youtubeService.js
+│
+├── utils/
+│   ├── date.js
+│   ├── constants.js
+│   └── progress.js
+│
+└── main.jsx
+```
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone <repository-url>
+cd focustube
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Install Recharts
+
+```bash
+npm install recharts
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## How It Works
+
+### Create a Playlist
+
+Enter:
+
+* Playlist Name
+* Playlist URL
+* Total Videos
+* Description (optional)
+
+### Track Progress
+
+Choose one:
+
+#### Method 1
+
+Update watched count directly.
+
+Example:
+
+```text
+Watched: 12
+Total: 50
+```
+
+#### Method 2
+
+Add individual video titles.
+
+Example:
+
+```text
+✓ Introduction
+✓ Variables
+✓ Functions
+□ React Hooks
+□ Context API
+```
+
+---
+
+### Set Daily Goals
+
+Example:
+
+```text
+□ Complete React Hooks
+□ Solve 3 DSA Problems
+□ Revise DBMS Unit 2
+```
+
+Track completion throughout the day.
+
+---
+
+## Current Limitations
+
+* No user authentication
+* No cloud synchronization
+* No automatic YouTube playlist import
+* No streak system
+* No session tracking
+* No browser extension support
+
+---
+
+## Future Roadmap
+
+### Phase 1
+
+* Learning streaks
+* Weekly reports
+* Better analytics
+* Search and filter playlists
+
+### Phase 2
+
+* YouTube Data API integration
+* Automatic playlist import
+* Video metadata fetching
+* Thumbnail support
+
+### Phase 3
+
+* Firebase/Supabase backend
+* User accounts
+* Multi-device synchronization
+* Cloud backups
+
+### Phase 4
+
+* Chrome Extension
+* Recommendation blocker
+* Learning mode
+* Distraction-free YouTube experience
+
+### Phase 5
+
+* Android App
+* iOS App
+* Progressive Web App (PWA)
+
+---
+
+## Potential Use Cases
+
+* College students
+* Competitive exam preparation
+* Programming courses
+* Online certifications
+* Self-paced learning
+* Skill development roadmaps
+
+---
+
+## Why FocusTube?
+
+FocusTube separates learning progress from YouTube itself.
+
+Instead of relying on memory, learners get:
+
+* Clear progress tracking
+* Daily accountability
+* Visual motivation
+* Structured learning workflows
+
+The goal is simple:
+
+**Open YouTube with a purpose. Leave with progress.**
+
+---
+
+## License
+
+MIT License
+
+Feel free to modify, distribute, and improve the project.
